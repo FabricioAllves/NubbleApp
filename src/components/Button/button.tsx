@@ -1,7 +1,7 @@
 import React from "react";
 import { Text } from "../Text/Text";
 import { TouchableOpacityBox, TouchableOpacityBoxProps } from "../Box/Box";
-import { ThemeColors } from "../../theme/theme.";
+import { ThemeColors } from "../../theme/theme";
 import { buttonPesets } from "./ButtonPresets";
 import { ActivityIndicator } from "../ActivityIndicator/ActivityIndicator";
 
