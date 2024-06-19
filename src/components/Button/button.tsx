@@ -6,7 +6,8 @@ import {
   TouchableOpacityBoxProps,
   Text,
 } from '@components';
-import { buttonPresets } from './buttonPresets';
+
+import {buttonPresets} from './buttonPresets';
 
 export type ButtonPreset = 'primary' | 'outline';
 

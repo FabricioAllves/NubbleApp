@@ -1,23 +1,31 @@
-import React, { useRef } from "react";
+import React, {useRef} from 'react';
 import {
   Pressable,
   TextInput as RNTextInput,
   TextInputProps as RNTextInputProps,
   TextStyle,
-} from "react-native";
-import { $fontFamily, $fontSizes, Text } from "../Text/Text";
-import {Box, BoxProps} from '../Box/Box'
-import { useAppTheme } from "@hooks";
+} from 'react-native';
+
+import {useAppTheme} from '@hooks';
+
+import {Box, BoxProps} from '../Box/Box';
+import {$fontFamily, $fontSizes, Text} from '../Text/Text';
 
 export interface TextInputProps extends RNTextInputProps {
   label: string;
   errorMessage?: string;
   rightComponent?: React.ReactElement;
-  boxProps?: BoxProps
+  boxProps?: BoxProps;
 }
 
-export function TextInput({ label, errorMessage, rightComponent, boxProps, ...rnTextInputProps }: TextInputProps) {
-  const { colors } = useAppTheme();
+export function TextInput({
+  label,
+  errorMessage,
+  rightComponent,
+  boxProps,
+  ...rnTextInputProps
+}: TextInputProps) {
+  const {colors} = useAppTheme();
   const inputRef = useRef<RNTextInput>(null);
 
   const $textInputContainer: BoxProps = {
@@ -25,8 +33,8 @@ export function TextInput({ label, errorMessage, rightComponent, boxProps, ...rn
     borderColor: errorMessage ? 'error' : 'gray4',
     flexDirection: 'row',
     padding: 's16',
-    borderRadius: 's12'
-  }
+    borderRadius: 's12',
+  };
 
   function focusInput() {
     inputRef.current?.focus();
@@ -34,7 +42,7 @@ export function TextInput({ label, errorMessage, rightComponent, boxProps, ...rn
   return (
     <Box {...boxProps}>
       <Pressable onPress={focusInput}>
-        <Text preset="paragraphMedium" mb='s4'>
+        <Text preset="paragraphMedium" mb="s4">
           {label}
         </Text>
         <Box {...$textInputContainer}>
@@ -50,18 +58,15 @@ export function TextInput({ label, errorMessage, rightComponent, boxProps, ...rn
               {rightComponent}
             </Box>
           )}
-
         </Box>
-        {
-          errorMessage && (
-            <Text preset="paragraphSmall" bold color="error">
-              {errorMessage}
-            </Text>
-          )
-        }
+        {errorMessage && (
+          <Text preset="paragraphSmall" bold color="error">
+            {errorMessage}
+          </Text>
+        )}
       </Pressable>
     </Box>
-  )
+  );
 }
 
 const $textInputStyle: TextStyle = {
@@ -69,6 +74,5 @@ const $textInputStyle: TextStyle = {
   flexGrow: 1,
   flexShrink: 1,
   fontFamily: $fontFamily.regular,
-  ...$fontSizes.paragraphMedium
-}
-
+  ...$fontSizes.paragraphMedium,
+};
