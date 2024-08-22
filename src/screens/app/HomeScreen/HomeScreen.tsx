@@ -1,39 +1,25 @@
 import React, {useEffect, useState} from 'react';
-import {Dimensions, FlatList, Image, ListRenderItemInfo} from 'react-native';
+import {FlatList, ListRenderItemInfo, StyleProp, ViewStyle} from 'react-native';
 
 import {Post, postService} from '@domain';
 
-import {Box, Button, Screen, Text} from '@components';
+import {PostItem, Screen} from '@components';
 import {AppTabScreenProps} from '@routes';
 
-export function HomeScreen({navigation}: AppTabScreenProps<'HomeScreen'>) {
-  const [postList, setPostList] = useState<Post[]>();
+export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
+  const [postList, setPostList] = useState<Post[]>([]);
   useEffect(() => {
     postService.getList().then(list => setPostList(list));
   }, []);
 
   function renderItem({item}: ListRenderItemInfo<Post>) {
-    return (
-      <Box marginBottom="s24">
-        <Box flexDirection="row">
-          <Image
-            source={{uri: item.author.profileURL}}
-            style={{width: 32, height: 32}}
-          />
-          <Text>{item.author.userName}</Text>
-        </Box>
-        <Image
-          source={{uri: item.imageURL}}
-          resizeMode="cover"
-          style={{width: Dimensions.get('screen').width, height: 300}}
-        />
-      </Box>
-    );
+    return <PostItem post={item} />;
   }
 
   return (
-    <Screen>
+    <Screen style={$screen}>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={postList}
         keyExtractor={item => item.id}
         renderItem={renderItem}
@@ -41,3 +27,9 @@ export function HomeScreen({navigation}: AppTabScreenProps<'HomeScreen'>) {
     </Screen>
   );
 }
+
+const $screen: StyleProp<ViewStyle> = {
+  paddingTop: 0,
+  paddingBottom: 0,
+  paddingHorizontal: 0,
+};
