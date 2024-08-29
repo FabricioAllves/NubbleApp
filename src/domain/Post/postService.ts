@@ -1,19 +1,10 @@
-import {postListMock} from './postListMock';
-import {Post} from './types';
+import {postAdapter} from './postAdapter';
+import {postApi} from './postApi';
+import {Post} from './postTypes';
 
 async function getList(): Promise<Post[]> {
-  let response = await fetch('http://localhost:3333/user/post', {
-    method: 'GET',
-    headers: {
-      Authorization:
-        'Bearer NQ.MrTYdemsnesmIDgpEmArfAU6PyqPNuO-Ih6jAC-uNIjw8bDlCptQhtQGsWac',
-    },
-  });
-
-  let data = await response.json();
-  console.log('FETCH DATA:', data);
-
-  return postListMock;
+  const postPageApi = await postApi.getList();
+  return postPageApi.data.map(postAdapter.toPost);
 }
 
 export const postService = {
