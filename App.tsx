@@ -4,9 +4,11 @@ import {ThemeProvider} from '@shopify/restyle';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import {Router} from './src/routes/Routes';
-import {Login} from './src/screens/app/auth/LoginScreen/LoginScreen';
-import {SignUp} from './src/screens/app/auth/SignUpScreen/SignUpScreen';
 import {theme} from './src/theme/theme';
+
+if (__DEV__) {
+  require('./src/libs/Reactotron');
+}
 
 function App(): JSX.Element {
   return (
