@@ -23,6 +23,7 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
       setPostList(list);
     } catch (er) {
       setError(true);
+      console.log('ERROR:', error);
     } finally {
       setLoading(false);
     }
@@ -30,7 +31,7 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   function renderItem({item}: ListRenderItemInfo<Post>) {
     return <PostItem post={item} />;
@@ -43,7 +44,7 @@ export function HomeScreen({}: AppTabScreenProps<'HomeScreen'>) {
         data={postList}
         keyExtractor={item => item.id}
         renderItem={renderItem}
-        contentContainerStyle={{flexGrow: 1}}
+        contentContainerStyle={{flex: postList.length === 0 ? 1 : undefined}}
         ListHeaderComponent={<HomeHeader />}
         ListEmptyComponent={
           <HomeEmpty refetch={fetchData} error={error} loading={loading} />
