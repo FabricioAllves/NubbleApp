@@ -5,13 +5,15 @@ import {
   TextInputProps as RNTextInputProps,
 } from 'react-native';
 
-import {$textInputStyle, Box, Text} from '@components';
+import {$textInputStyle} from '@components';
 import {useAppTheme} from '@hooks';
 
-interface TextMessageProps extends RNTextInputProps {
-  onPressSend: () => void;
-}
+import {Box} from '../Box/Box';
+import {Text} from '../Text/Text';
 
+interface TextMessageProps extends RNTextInputProps {
+  onPressSend: (message: string) => void;
+}
 export function TextMessage({
   onPressSend,
   value,
@@ -23,6 +25,7 @@ export function TextMessage({
   function focusInput() {
     inputRef.current?.focus();
   }
+
   const sendIsDisabled = value?.trim().length === 0;
 
   return (
@@ -30,10 +33,10 @@ export function TextMessage({
       <Box
         paddingHorizontal="s16"
         paddingVertical="s14"
+        backgroundColor="gray5"
         flexDirection="row"
         justifyContent="space-between"
         alignItems="center"
-        backgroundColor="gray5"
         borderRadius="s12">
         <RNTextInput
           ref={inputRef}
@@ -42,7 +45,9 @@ export function TextMessage({
           style={[$textInputStyle, {color: colors.gray1}]}
           {...rnTextInputProps}
         />
-        <Pressable disabled={sendIsDisabled} onPress={onPressSend}>
+        <Pressable
+          disabled={sendIsDisabled}
+          onPress={() => onPressSend(value || '')}>
           <Text color={sendIsDisabled ? 'gray2' : 'primary'} bold>
             Enviar
           </Text>
