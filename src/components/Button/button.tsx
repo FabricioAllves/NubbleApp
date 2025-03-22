@@ -7,7 +7,7 @@ import {
   Text,
 } from '@components';
 
-import {buttonPresets} from './buttonPresets';
+import {buttonPresets} from './ButtonPresets';
 
 export type ButtonPreset = 'primary' | 'outline';
 
